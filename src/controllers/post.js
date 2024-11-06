@@ -17,4 +17,34 @@ try {
 }
 }
 
+export const getPosts = async (req,res)=>{
+    try {
+        const posts = await Post.find({})
+        return res.status(200).json({message: "Posts Found",
+            data: posts
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({message: "unable to fetch posts"})
+    }
+}
+
+export const getPostbyId = async (req,res)=>{
+    const {id} = req.params;
+    try {
+        const post = await Post.findById(id)
+        
+        if(!post){
+            return res.status(404).json({message: "Post not found"})
+        }
+
+        return res.status(200).json({message: "Post Found",
+            data: post
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({message: "unable to fetch post"})
+    }
+}
+
 

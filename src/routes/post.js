@@ -1,10 +1,13 @@
 import express from "express";
 import {body} from "express-validator"
-import { createPost } from "../controllers/post.js";
+import { createPost, getPosts, getPostbyId } from "../controllers/post.js";
 import { upload } from "../middlewares/upload.js";
 import { validateRequest } from "../middlewares/valiadteRequest.js";
 
 const router = express.Router()
+
+router.get('/post', getPosts)
+router.get('/post/:id', getPostbyId)
 
 router.post('/post',
     upload.single("image"),[
@@ -14,5 +17,6 @@ router.post('/post',
     validateRequest,
     createPost
 )
+
 
 export default router
